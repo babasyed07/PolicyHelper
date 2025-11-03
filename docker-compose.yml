@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  policyhelper:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - ./policy_history.json:/app/policy_history.json
+      - ./policy_approvals.json:/app/policy_approvals.json
+    restart: unless-stopped

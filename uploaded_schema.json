@@ -1,0 +1,1692 @@
+  {
+    "SecureBank": {
+      "entityTypes": {
+        "User": {
+          "memberOfTypes": [],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "userId": { 
+                "type": "String"
+              },
+              "name": { 
+                "type": "String"
+              },
+              "email": { 
+                "type": "String"
+              },
+              "phone": { 
+                "type": "String"
+              },
+              "role": { 
+                "type": "String"
+              },
+              "status": { 
+                "type": "String"
+              },
+              "fullName": { 
+                "type": "String"
+              },
+              "ssn": { 
+                "type": "String"
+              },
+              "dateOfBirth": { 
+                "type": "String"
+              },
+              "homeAddress": { 
+                "type": "String"
+              },
+              "alternatePhone": { 
+                "type": "String"
+              },
+              "employerName": { 
+                "type": "String"
+              },
+              "annualIncome": { 
+                "type": "String"
+              },
+              "creditScore": { 
+                "type": "Long"
+              },
+              "identityVerified": { 
+                "type": "String"
+              },
+              "kycCompleted": { 
+                "type": "String"
+              },
+              "clearanceLevel": { 
+                "type": "Long"
+              },
+              "department": { 
+                "type": "String"
+              },
+              "branchId": { 
+                "type": "String"
+              },
+              "pendingProfileChanges": { 
+                "type": "String"
+              },
+              "lastProfileUpdate": { 
+                "type": "String"
+              },
+              "profileUpdatedBy": { 
+                "type": "String"
+              },
+              "createdAt": { 
+                "type": "String"
+              }
+            }
+          }
+        },
+        "Account": {
+          "memberOfTypes": [],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "accountId": { 
+                "type": "String"
+              },
+              "userId": { 
+                "type": "String"
+              },
+              "accountNumber": { 
+                "type": "String"
+              },
+              "accountType": { 
+                "type": "String"
+              },
+              "balance": { 
+                "type": "String"
+              },
+              "status": { 
+                "type": "String"
+              },
+              "interestRate": { 
+                "type": "String"
+              },
+              "monthlyFee": { 
+                "type": "String"
+              },
+              "minimumBalance": { 
+                "type": "String"
+              },
+              "overdraftLimit": { 
+                "type": "String"
+              },
+              "creditLimit": { 
+                "type": "String"
+              },
+              "onlineBanking": { 
+                "type": "Boolean"
+              },
+              "mobileBanking": { 
+                "type": "Boolean"
+              },
+              "debitCard": { 
+                "type": "Boolean"
+              },
+              "checksEnabled": { 
+                "type": "Boolean"
+              },
+              "wireTransfers": { 
+                "type": "Boolean"
+              },
+              "internationalTransfers": { 
+                "type": "Boolean"
+              },
+              "branchCode": { 
+                "type": "String"
+              },
+              "routingNumber": { 
+                "type": "String"
+              },
+              "swiftCode": { 
+                "type": "String"
+              },
+              "riskRating": { 
+                "type": "String"
+              },
+              "complianceStatus": { 
+                "type": "String"
+              },
+              "kycStatus": { 
+                "type": "String"
+              },
+              "amlStatus": { 
+                "type": "String"
+              },
+              "pendingAccountChanges": { 
+                "type": "String"
+              },
+              "lastAccountUpdate": { 
+                "type": "String"
+              },
+              "accountUpdatedBy": { 
+                "type": "String"
+              },
+              "createdAt": { 
+                "type": "String"
+              }
+            }
+          }
+        },
+        "Transaction": {
+          "memberOfTypes": [],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "transactionId": { 
+                "type": "String"
+              },
+              "fromAccountId": { 
+                "type": "String"
+              },
+              "toAccountId": { 
+                "type": "String"
+              },
+              "type": { 
+                "type": "String"
+              },
+              "amount": { 
+                "type": "String"
+              },
+              "description": { 
+                "type": "String"
+              },
+              "status": { 
+                "type": "String"
+              },
+              "processedBy": { 
+                "type": "String"
+              },
+              "createdAt": { 
+                "type": "String"
+              }
+            }
+          }
+        },
+        "Loan": {
+          "memberOfTypes": [],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "loanId": { 
+                "type": "String"
+              },
+              "userId": { 
+                "type": "String"
+              },
+              "type": { 
+                "type": "String"
+              },
+              "amount": { 
+                "type": "String"
+              },
+              "interestRate": { 
+                "type": "String"
+              },
+              "termMonths": { 
+                "type": "Long"
+              },
+              "monthlyPayment": { 
+                "type": "String"
+              },
+              "remainingBalance": { 
+                "type": "String"
+              },
+              "status": { 
+                "type": "String"
+              },
+              "approvedBy": { 
+                "type": "String"
+              },
+              "notes": { 
+                "type": "String"
+              },
+              "createdAt": { 
+                "type": "String"
+              }
+            }
+          }
+        },
+        "AuditLog": {
+          "memberOfTypes": [],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "auditLogId": { 
+                "type": "String"
+              },
+              "principalId": { 
+                "type": "String"
+              },
+              "principalType": { 
+                "type": "String"
+              },
+              "principalRole": { 
+                "type": "String"
+              },
+              "action": { 
+                "type": "String"
+              },
+              "resourceType": { 
+                "type": "String"
+              },
+              "resourceId": { 
+                "type": "String"
+              },
+              "decision": { 
+                "type": "String"
+              },
+              "reasons": { 
+                "type": "String"
+              },
+              "requestContext": { 
+                "type": "String"
+              },
+              "sessionId": { 
+                "type": "String"
+              },
+              "ipAddress": { 
+                "type": "String"
+              },
+              "userAgent": { 
+                "type": "String"
+              },
+              "riskLevel": { 
+                "type": "String"
+              },
+              "complianceFlags": { 
+                "type": "String"
+              },
+              "businessContext": { 
+                "type": "String"
+              },
+              "actionOutcome": { 
+                "type": "String"
+              },
+              "createdAt": { 
+                "type": "String"
+              }
+            }
+          }
+        }
+      },
+      "actions": {
+        "Login": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "Logout": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "GetCurrentUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "SwitchUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "targetUserRole": { 
+                  "type": "String"
+                },
+                "targetUserId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewDashboard": {
+          "appliesTo": {
+            "resourceTypes": ["User", "Account", "Transaction", "Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewAccounts": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewAccount": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "CreateAccount": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "accountType": { 
+                  "type": "String"
+                },
+                "initialDeposit": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "UpdateAccountDetails": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "SubmitAccountChanges": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ApproveAccountChanges": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "DeleteAccount": {
+          "appliesTo": {
+            "resourceTypes": ["Account"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewTransactions": {
+          "appliesTo": {
+            "resourceTypes": ["Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewTransaction": {
+          "appliesTo": {
+            "resourceTypes": ["Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "CreateTransaction": {
+          "appliesTo": {
+            "resourceTypes": ["Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "transactionType": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "DeleteTransaction": {
+          "appliesTo": {
+            "resourceTypes": ["Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "TransferFunds": {
+          "appliesTo": {
+            "resourceTypes": ["Account", "Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                },
+                "fromAccountId": { 
+                  "type": "String"
+                },
+                "toAccountId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "InternalTransfer": {
+          "appliesTo": {
+            "resourceTypes": ["Account", "Transaction"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                },
+                "fromAccountId": { 
+                  "type": "String"
+                },
+                "toAccountId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewLoans": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "CreateLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "loanType": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "OfferLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "AcceptLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "DeclineLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ApproveLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "amount": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "RejectLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "DeleteLoan": {
+          "appliesTo": {
+            "resourceTypes": ["Loan"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewUsers": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "CreateUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "targetRole": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "UpdateUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "DeleteUser": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "UpdateUserProfile": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "SubmitUserProfileChanges": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ApproveUserProfileChanges": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewSensitiveUserData": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "targetUserRole": { 
+                  "type": "String"
+                },
+                "sensitiveDataType": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "EditSensitiveUserData": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "targetUserRole": { 
+                  "type": "String"
+                },
+                "sensitiveDataType": { 
+                  "type": "String"
+                },
+                "fieldsToModify": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "SubmitSensitiveUserChange": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "targetUserRole": { 
+                  "type": "String"
+                },
+                "changeRequestType": { 
+                  "type": "String"
+                },
+                "requestedBy": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ApproveSensitiveUserChange": {
+          "appliesTo": {
+            "resourceTypes": ["User"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                },
+                "targetUserRole": { 
+                  "type": "String"
+                },
+                "changeRequestId": { 
+                  "type": "String"
+                },
+                "approvalDecision": { 
+                  "type": "String"
+                },
+                "reviewerRole": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewAuditLogs": {
+          "appliesTo": {
+            "resourceTypes": ["AuditLog"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ExportAuditLog": {
+          "appliesTo": {
+            "resourceTypes": ["AuditLog"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "exportFormat": { 
+                  "type": "String"
+                },
+                "dateRange": { 
+                  "type": "String"
+                },
+                "filterCriteria": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        },
+        "ViewAuditLog": {
+          "appliesTo": {
+            "resourceTypes": ["AuditLog"],
+            "principalTypes": ["User"],
+            "context": {
+              "type": "Record",
+              "attributes": {
+                "currentTime": { 
+                  "type": "String"
+                },
+                "ipAddress": { 
+                  "type": "String"
+                },
+                "userAgent": { 
+                  "type": "String"
+                },
+                "sessionId": { 
+                  "type": "String"
+                },
+                "currentHour": { 
+                  "type": "Long"
+                },
+                "riskLevel": { 
+                  "type": "String"
+                },
+                "resourceId": { 
+                  "type": "String"
+                }
+              }
+            }
+          }
+        }
+    }
+  }
+  }

@@ -13,13 +13,29 @@ class SchemaParser:
         self._parse_actions()
     
     def _parse_entities(self):
-        if 'entityTypes' in self.schema:
-            for entity_name, entity_def in self.schema['entityTypes'].items():
+        # Handle different schema structures
+        schema_data = self.schema
+        
+        # If schema has a namespace wrapper (like "SecureBank"), unwrap it
+        if len(self.schema) == 1 and 'entityTypes' not in self.schema:
+            namespace_key = list(self.schema.keys())[0]
+            schema_data = self.schema[namespace_key]
+        
+        if 'entityTypes' in schema_data:
+            for entity_name, entity_def in schema_data['entityTypes'].items():
                 self.entities[entity_name] = entity_def
     
     def _parse_actions(self):
-        if 'actions' in self.schema:
-            for action_name, action_def in self.schema['actions'].items():
+        # Handle different schema structures
+        schema_data = self.schema
+        
+        # If schema has a namespace wrapper (like "SecureBank"), unwrap it
+        if len(self.schema) == 1 and 'actions' not in self.schema:
+            namespace_key = list(self.schema.keys())[0]
+            schema_data = self.schema[namespace_key]
+        
+        if 'actions' in schema_data:
+            for action_name, action_def in schema_data['actions'].items():
                 self.actions[action_name] = action_def
     
     def get_schema_context(self):

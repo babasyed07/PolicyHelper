@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy Helper - Enhanced</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .tabs { display: flex; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; background: #ddd; cursor: pointer; border-radius: 4px 4px 0 0; margin-right: 5px; }
+        .tab.active { background: #007cba; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a87; }
+        button.approve { background: #28a745; }
+        button.reject { background: #dc3545; }
+        .policy { background: #e8f4f8; padding: 15px; border-radius: 4px; font-family: monospace; white-space: pre-wrap; }
+        .rationale { background: #f0f8e8; padding: 15px; border-radius: 4px; }
+        .validation { background: #fff3cd; padding: 15px; border-radius: 4px; margin: 10px 0; }
+        .validation.valid { background: #d4edda; }
+        .validation.invalid { background: #f8d7da; }
+        .loading { color: #666; font-style: italic; }
+        .recommendation { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 4px; }
+        .recommendation.high { border-left: 5px solid #dc3545; }
+        .recommendation.medium { border-left: 5px solid #ffc107; }
+        .recommendation.low { border-left: 5px solid #28a745; }
+        .chat-messages { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 4px; white-space: pre-wrap; }
+        .message.user { background: #e3f2fd; text-align: right; }
+        .message.assistant { background: #f5f5f5; }
+        .stats { display: flex; justify-content: space-around; text-align: center; }
+        .stat { background: white; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>🏦 Policy Helper - Enhanced</h1>
+    <p>AI-powered Cedar policy generation with validation, recommendations, and conversational interface.</p>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('schema')">Upload Schema</div>
+        <div class="tab" onclick="showTab('generate')">Generate Policy</div>
+        <div class="tab" onclick="showTab('recommendations')">Recommendations</div>
+        <div class="tab" onclick="showTab('chat')">Chat Interface</div>
+        <div class="tab" onclick="showTab('stats')">Statistics</div>
+    </div>
+    
+    <!-- Upload Schema Tab -->
+    <div id="schema" class="tab-content active">
+        <div class="container">
+            <h3>Upload Cedar Schema</h3>
+            <p>Paste your Cedar schema in JSON format:</p>
+            <textarea id="schema-input" placeholder='{
+  "entityTypes": {
+    "User": {
+      "memberOfTypes": [],
+      "shape": {
+        "type": "Record",
+        "attributes": {
+          "role": {"type": "String"}
+        }
+      }
+    }
+  },
+  "actions": {
+    "CreateTransaction": {
+      "appliesTo": {
+        "principalTypes": ["User"],
+        "resourceTypes": ["Transaction"]
+      }
+    }
+  }
+}' style="height: 300px;"></textarea>
+            <button onclick="uploadSchema()">Upload Schema</button>
+            <button onclick="useDefaultSchema()">Use Default Banking Schema</button>
+            <div id="schema-status" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+    
+    <!-- Generate Policy Tab -->
+    <div id="generate" class="tab-content">
+        <div class="container">
+            <h3>Enter Requirement</h3>
+            <textarea id="requirement" placeholder="Example: Deny Account Holder from creating transactions >= 5000"></textarea>
+            <button onclick="generatePolicy()">Generate Policy</button>
+        </div>
+        
+        <div id="result" style="display: none;">
+            <div class="container">
+                <h3>Generated Policy</h3>
+                <div id="validation-status" class="validation"></div>
+                <div id="policy" class="policy"></div>
+            </div>
+            
+            <div class="container">
+                <h3>Rationale</h3>
+                <div id="rationale" class="rationale"></div>
+            </div>
+            
+            <div class="container">
+                <h3>Approval</h3>
+                <textarea id="feedback" placeholder="Optional feedback..."></textarea><br>
+                <button class="approve" onclick="approvePolicy()">✓ Approve & Save</button>
+                <button class="reject" onclick="rejectPolicy()">✗ Reject</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recommendations Tab -->
+    <div id="recommendations" class="tab-content">
+        <div class="container">
+            <h3>Policy Recommendations</h3>
+            <button onclick="loadRecommendations()">Load Recommendations</button>
+            <div id="recommendations-list"></div>
+        </div>
+    </div>
+    
+    <!-- Chat Interface Tab -->
+    <div id="chat" class="tab-content">
+        <div class="container">
+            <h3>Conversational Policy Generation</h3>
+            <div id="chat-messages" class="chat-messages"></div>
+            <textarea id="chat-input" placeholder="Describe your access control needs..."></textarea>
+            <button onclick="sendChatMessage()">Send Message</button>
+            <button onclick="startNewChat()">New Chat</button>
+        </div>
+    </div>
+    
+    <!-- Statistics Tab -->
+    <div id="stats" class="tab-content">
+        <div class="container">
+            <h3>Policy Generation Statistics</h3>
+            <div id="stats-display" class="stats"></div>
+            <button onclick="loadStats()">Refresh Stats</button>
+        </div>
+    </div>
+    
+    <div id="loading" class="loading" style="display: none;">Processing...</div>
+
+    <script>
+        let currentPolicy = null;
+        let chatSessionId = null;
+        
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        async function generatePolicy() {
+            const requirement = document.getElementById('requirement').value;
+            if (!requirement) {
+                alert('Please enter a requirement');
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requirement })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentPolicy = { ...data, requirement };
+                    displayPolicy(data);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+        
+        function displayPolicy(data) {
+            const validationEl = document.getElementById('validation-status');
+            if (data.validation && data.validation.is_valid) {
+                validationEl.className = 'validation valid';
+                validationEl.innerHTML = '✓ Policy is valid and ready for use';
+            } else if (data.validation) {
+                validationEl.className = 'validation invalid';
+                validationEl.innerHTML = '⚠ Policy has validation errors:<br>' + data.validation.errors.join('<br>');
+            }
+            
+            // Fix newline display
+            const policyText = data.policy ? data.policy.replace(/\\n/g, '\n') : '';
+            document.getElementById('policy').textContent = policyText;
+            
+            const rationale = data.rationale ? data.rationale.map(item => item.replace(/\\n/g, '\n')) : [];
+            document.getElementById('rationale').innerHTML = rationale.join('<br>');
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        async function approvePolicy() {
+            if (!currentPolicy) return;
+            
+            const feedback = document.getElementById('feedback').value;
+            
+            try {
+                const response = await fetch('/approve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...currentPolicy, feedback })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Policy approved and saved!');
+                    document.getElementById('result').style.display = 'none';
+                    document.getElementById('requirement').value = '';
+                    document.getElementById('feedback').value = '';
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        async function rejectPolicy() {
+            if (!currentPolicy) return;
+            
+            const reason = prompt('Please provide a reason for rejection:');
+            if (!reason) return;
+            
+            try {
+                const response = await fetch('/reject', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...currentPolicy, reason })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Policy rejected. Feedback recorded for improvement.');
+                    document.getElementById('result').style.display = 'none';
+                    document.getElementById('requirement').value = '';
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        async function loadRecommendations() {
+            try {
+                const response = await fetch('/recommendations');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayRecommendations(data.recommendations);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendations-list');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = `recommendation ${rec.priority.toLowerCase()}`;
+                div.innerHTML = `
+                    <h4>${rec.title} (${rec.priority} Priority)</h4>
+                    <p>${rec.description}</p>
+                    <div class="rationale">${rec.rationale.join('<br>')}</div>
+                    <button onclick="useRecommendation('${rec.id}')">Use This Recommendation</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        async function startNewChat() {
+            try {
+                const response = await fetch('/chat/start', { method: 'POST' });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    chatSessionId = data.session_id;
+                    document.getElementById('chat-messages').innerHTML = '<div class="message assistant">Chat session started. How can I help you with Cedar policies?</div>';
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        async function sendChatMessage() {
+            const message = document.getElementById('chat-input').value;
+            if (!message) return;
+            
+            if (!chatSessionId) {
+                await startNewChat();
+            }
+            
+            addChatMessage('user', message);
+            document.getElementById('chat-input').value = '';
+            
+            try {
+                const response = await fetch('/chat/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const policyText = data.policy ? data.policy.replace(/\\n/g, '\n') : '';
+                    const rationaleText = data.rationale ? data.rationale.join('\n') : '';
+                    addChatMessage('assistant', `Generated Policy:\n${policyText}\n\nRationale:\n${rationaleText}`);
+                } else {
+                    addChatMessage('assistant', 'Error: ' + data.error);
+                }
+            } catch (error) {
+                addChatMessage('assistant', 'Error: ' + error.message);
+            }
+        }
+        
+        function addChatMessage(role, content) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.textContent = content;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        async function uploadSchema() {
+            const schemaText = document.getElementById('schema-input').value;
+            if (!schemaText.trim()) {
+                alert('Please enter a Cedar schema');
+                return;
+            }
+            
+            try {
+                JSON.parse(schemaText); // Validate JSON
+                
+                const response = await fetch('/upload-schema', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ schema: schemaText })
+                });
+                
+                const data = await response.json();
+                const statusEl = document.getElementById('schema-status');
+                
+                if (response.ok) {
+                    statusEl.innerHTML = '<span style="color: green;">✓ Schema uploaded successfully!</span>';
+                    loadRecommendations(); // Refresh recommendations
+                } else {
+                    statusEl.innerHTML = '<span style="color: red;">✗ Error: ' + data.error + '</span>';
+                }
+            } catch (error) {
+                document.getElementById('schema-status').innerHTML = '<span style="color: red;">✗ Invalid JSON format</span>';
+            }
+        }
+        
+        async function useDefaultSchema() {
+            document.getElementById('schema-input').value = '';
+            const statusEl = document.getElementById('schema-status');
+            statusEl.innerHTML = '<span style="color: blue;">ℹ Using default banking schema</span>';
+        }
+        
+        async function loadStats() {
+            try {
+                const response = await fetch('/stats');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayStats(data);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        function displayStats(stats) {
+            const container = document.getElementById('stats-display');
+            container.innerHTML = `
+                <div class="stat">
+                    <h3>${stats.total_policies || 0}</h3>
+                    <p>Total Policies</p>
+                </div>
+                <div class="stat">
+                    <h3>${stats.approved || 0}</h3>
+                    <p>Approved</p>
+                </div>
+                <div class="stat">
+                    <h3>${stats.rejected || 0}</h3>
+                    <p>Rejected</p>
+                </div>
+                <div class="stat">
+                    <h3>${(stats.approval_rate || 0).toFixed(1)}%</h3>
+                    <p>Approval Rate</p>
+                </div>
+            `;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecommendations();
+            loadStats();
+        });
+    </script>
+</body>
+</html>
