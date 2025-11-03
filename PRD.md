@@ -150,12 +150,20 @@ So that I can track changes and reuse common patterns
 - ✅ CLI interface functional
 - ✅ Basic history storage
 
+### Enhanced Product (Current Enhancements)
+- 🔄 Schema-based policy recommendations
+- 🔄 Accept/Reject approval workflow
+- 🔄 Conversational chat interface
+- 🔄 Comprehensive policy validation
+- 🔄 Policy testing before presentation
+
 ### Full Product
 - ✅ Web chatbot interface
-- ✅ Advanced policy validation
+- 🔄 Advanced policy validation (Enhanced)
 - ✅ Export capabilities
 - ✅ Comprehensive error handling
 - ✅ Production-ready security measures
+- 🔄 User decision tracking and analytics
 
 ## Appendix
 
@@ -180,3 +188,36 @@ forbid (
 • Prevents account holders from initiating high-value transactions above $5000 threshold
 • Reduces fraud risk by requiring additional authorization for large transactions  
 • Aligns with banking regulations requiring enhanced controls for significant monetary transfers
+
+## Enhancement Notes
+
+### 1. Schema Ingestion → Policy Recommendations
+Once the Cedar schema in JSON format is ingested, the system should automatically generate policy recommendations based on:
+- Common banking access control patterns
+- Entity-action relationships in the schema
+- Security best practices for financial applications
+- Regulatory compliance requirements
+
+Recommendations will be presented with priority levels and rationale, allowing users to select which policies to generate in detail.
+
+### 2. Accept/Reject Policy Workflow
+The user should be able to Accept the Cedar Policy and Save it, or have the ability to Reject it:
+- **Accept**: Policy is saved to history with approval timestamp and user confirmation
+- **Reject**: Policy is discarded, optional feedback collected for improvement
+- **Approval Tracking**: System maintains statistics on approval/rejection rates
+- **Feedback Loop**: Rejection feedback used to improve future policy generation
+
+### 3. Natural Language Chat Interface
+Users should be able to give business intent in Natural language to the Chat to generate Cedar policies:
+- **Conversational Context**: Multi-turn conversations with context retention
+- **Iterative Refinement**: Users can refine policies through follow-up questions
+- **Session Management**: Chat sessions persist during user interaction
+- **Context Awareness**: System remembers previous exchanges within session
+
+### 4. Policy Testing and Validation
+The Cedar Policy generated in steps 2 or 3 should be tested and validated before it presents to the user:
+- **Syntax Validation**: Verify Cedar policy syntax correctness
+- **Schema Compliance**: Ensure policy aligns with loaded schema entities and actions
+- **Test Case Generation**: Automatically generate test scenarios based on policy logic
+- **Validation Reporting**: Present clear pass/fail status with detailed feedback
+- **Quality Gate**: Only validated policies are presented to users for approval
