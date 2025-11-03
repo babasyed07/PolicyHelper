@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy Helper</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a87; }
+        .policy { background: #e8f4f8; padding: 15px; border-radius: 4px; font-family: monospace; white-space: pre-wrap; }
+        .rationale { background: #f0f8e8; padding: 15px; border-radius: 4px; }
+        .loading { color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>🏦 Policy Helper</h1>
+    <p>Convert plain English requirements into Cedar policies for banking applications.</p>
+    
+    <div class="container">
+        <h3>Enter Requirement</h3>
+        <textarea id="requirement" placeholder="Example: Deny Account Holder from creating transactions >= 5000"></textarea>
+        <button onclick="generatePolicy()">Generate Policy</button>
+    </div>
+    
+    <div id="result" style="display: none;">
+        <div class="container">
+            <h3>Cedar Policy</h3>
+            <div id="policy" class="policy"></div>
+        </div>
+        
+        <div class="container">
+            <h3>Rationale</h3>
+            <div id="rationale" class="rationale"></div>
+        </div>
+    </div>
+    
+    <div id="loading" class="loading" style="display: none;">Generating policy...</div>
+
+    <script>
+        async function generatePolicy() {
+            const requirement = document.getElementById('requirement').value;
+            if (!requirement) {
+                alert('Please enter a requirement');
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requirement })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('policy').textContent = data.policy;
+                    document.getElementById('rationale').innerHTML = data.rationale.join('<br>');
+                    document.getElementById('result').style.display = 'block';
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "entityTypes": {
+    "User": {
+      "memberOfTypes": [],
+      "shape": {
+        "type": "Record",
+        "attributes": {
+          "role": {"type": "String"},
+          "department": {"type": "String"}
+        }
+      }
+    },
+    "Account": {
+      "memberOfTypes": [],
+      "shape": {
+        "type": "Record",
+        "attributes": {
+          "balance": {"type": "Long"},
+          "accountType": {"type": "String"},
+          "ownerId": {"type": "String"}
+        }
+      }
+    },
+    "Transaction": {
+      "memberOfTypes": [],
+      "shape": {
+        "type": "Record",
+        "attributes": {
+          "amount": {"type": "Long"},
+          "transactionType": {"type": "String"},
+          "fromAccount": {"type": "String"},
+          "toAccount": {"type": "String"}
+        }
+      }
+    }
+  },
+  "actions": {
+    "CreateTransaction": {
+      "appliesTo": {
+        "principalTypes": ["User"],
+        "resourceTypes": ["Transaction"]
+      }
+    },
+    "ViewAccount": {
+      "appliesTo": {
+        "principalTypes": ["User"],
+        "resourceTypes": ["Account"]
+      }
+    },
+    "ModifyAccount": {
+      "appliesTo": {
+        "principalTypes": ["User"],
+        "resourceTypes": ["Account"]
+      }
+    },
+    "ApproveTransaction": {
+      "appliesTo": {
+        "principalTypes": ["User"],
+        "resourceTypes": ["Transaction"]
+      }
+    }
+  }
+}
